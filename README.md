@@ -18,3 +18,4 @@ View your app in AI Studio: https://ai.studio/apps/6276d2dd-a11e-4961-a16b-115f7
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+"# foodorabd4" 
