@@ -25,7 +25,10 @@ import {
   riders,
   users,
 } from './src/db/schema.ts';
+<<<<<<< HEAD
 import { ensureSchemaTables } from './src/db/ensure-schema.ts';
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
 import { ensureDatabaseSeeded, IMG_BANGLA } from './src/db/seed.ts';
 import {
   getActiveCoupons,
@@ -44,14 +47,20 @@ import {
 } from './src/db/queries.ts';
 import {
   AuthRequest,
+<<<<<<< HEAD
   getOrCreateUser,
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   optionalAuth,
   requireAuth,
   requireRole,
   signSandboxToken,
   UserRole,
 } from './src/middleware/auth.ts';
+<<<<<<< HEAD
 import { supabaseServer } from './src/lib/supabase-admin.ts';
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
 import {
   calculateCartItemUnitPrice,
   calculateOrderFinancials,
@@ -239,6 +248,7 @@ function verifyPasswordScrypt(password: string, stored: string): boolean {
   return crypto.timingSafeEqual(derived, storedBuf);
 }
 
+<<<<<<< HEAD
 const ADMIN_PIN_VAULT_KEY = '__admin_panel_pin__';
 const ADMIN_PIN_VAULT_UID = 'admin-pin-vault';
 
@@ -392,6 +402,8 @@ function isUniqueViolationError(err: any): boolean {
   return code === '23505';
 }
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
 app.post('/api/auth/register', async (req, res) => {
   const schema = z.object({
     fullName: z.string().min(2).max(100),
@@ -406,13 +418,18 @@ app.post('/api/auth/register', async (req, res) => {
   const emailLower = parsed.data.email.trim().toLowerCase();
   const fullName = parsed.data.fullName.trim();
 
+<<<<<<< HEAD
   const attemptRegister = async () => {
+=======
+  try {
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     const existingCred = await db
       .select({ uid: localCredentials.uid })
       .from(localCredentials)
       .where(eq(localCredentials.email, emailLower))
       .limit(1);
     if (existingCred.length > 0) {
+<<<<<<< HEAD
       return { status: 409 as const, body: { error: 'An account with this email already exists. Please sign in.' } };
     }
 
@@ -428,10 +445,21 @@ app.post('/api/auth/register', async (req, res) => {
           error: 'An account with this email already exists. Please sign in with Google or your existing credentials.',
         },
       };
+=======
+      return res.status(409).json({ error: 'An account with this email already exists. Please sign in.' });
+    }
+
+    const existingUser = await db.select().from(users).where(eq(users.email, emailLower)).limit(1);
+    if (existingUser.length > 0) {
+      return res.status(409).json({
+        error: 'An account with this email already exists. Please sign in with Google or your existing credentials.',
+      });
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     }
 
     const uid = `usr-${crypto.randomBytes(8).toString('hex')}`;
     const role: UserRole = emailLower === 'rakibraqkib@gmail.com' ? 'super_admin' : 'customer';
+<<<<<<< HEAD
     const passwordHash = hashPasswordScrypt(parsed.data.password);
 
     await db.transaction(async (tx) => {
@@ -478,6 +506,31 @@ app.post('/api/auth/register', async (req, res) => {
     }
     console.error('Register failed:', error);
     return res.status(500).json({ error: error.message || 'Registration failed' });
+=======
+
+    const passwordHash = hashPasswordScrypt(parsed.data.password);
+    await db.insert(localCredentials).values({
+      email: emailLower,
+      uid,
+      passwordHash,
+    });
+
+    await db.insert(users).values({
+      uid,
+      email: emailLower,
+      fullName,
+      role,
+    });
+
+    const token = signSandboxToken({ uid, email: emailLower, fullName, role, isSandbox: false });
+    res.status(201).json({
+      token,
+      user: { uid, email: emailLower, fullName, role, isSandbox: false },
+    });
+  } catch (error: any) {
+    console.error('Register failed:', error);
+    res.status(500).json({ error: error.message || 'Registration failed' });
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   }
 });
 
@@ -493,7 +546,11 @@ app.post('/api/auth/login', async (req, res) => {
 
   const emailLower = parsed.data.email.trim().toLowerCase();
 
+<<<<<<< HEAD
   const attemptLogin = async () => {
+=======
+  try {
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     const credRows = await db
       .select()
       .from(localCredentials)
@@ -501,6 +558,7 @@ app.post('/api/auth/login', async (req, res) => {
       .limit(1);
 
     if (credRows.length === 0) {
+<<<<<<< HEAD
       // Fallback: check if user registered via Supabase Email & Password
       try {
         const { data: supaAuth, error: supaErr } = await supabaseServer.auth.signInWithPassword({
@@ -540,16 +598,24 @@ app.post('/api/auth/login', async (req, res) => {
         status: 401 as const,
         body: { error: 'No password account found for this email. Try Google Sign-In or Create Account.' },
       };
+=======
+      return res.status(401).json({ error: 'No account found with this email. Please create an account first.' });
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     }
 
     const { uid, passwordHash: storedHash } = credRows[0];
     if (!verifyPasswordScrypt(parsed.data.password, storedHash)) {
+<<<<<<< HEAD
       return { status: 401 as const, body: { error: 'Incorrect password. Please try again.' } };
+=======
+      return res.status(401).json({ error: 'Incorrect password. Please try again.' });
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     }
 
     const userRows = await db.select().from(users).where(eq(users.uid, uid)).limit(1);
     const dbUser = userRows[0];
     if (dbUser?.status === 'suspended') {
+<<<<<<< HEAD
       return { status: 403 as const, body: { error: 'This account has been suspended by an administrator.' } };
     }
 
@@ -583,6 +649,22 @@ app.post('/api/auth/login', async (req, res) => {
   } catch (error: any) {
     console.error('Login failed:', error);
     return res.status(500).json({ error: error.message || 'Sign in failed' });
+=======
+      return res.status(403).json({ error: 'This account has been suspended by an administrator.' });
+    }
+
+    const role: UserRole = (dbUser?.role as UserRole) || (emailLower === 'rakibraqkib@gmail.com' ? 'super_admin' : 'customer');
+    const fullName = dbUser?.fullName || emailLower.split('@')[0];
+
+    const token = signSandboxToken({ uid, email: emailLower, fullName, role, isSandbox: false });
+    res.json({
+      token,
+      user: { uid, email: emailLower, fullName, role, isSandbox: false },
+    });
+  } catch (error: any) {
+    console.error('Login failed:', error);
+    res.status(500).json({ error: error.message || 'Sign in failed' });
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   }
 });
 
@@ -1258,8 +1340,11 @@ app.post('/api/restaurants/register', requireAuth, async (req: AuthRequest, res)
     nidNumber: z.string().min(5),
     payoutMethod: z.enum(['bkash', 'nagad', 'bank']),
     payoutAccount: z.string().min(5),
+<<<<<<< HEAD
     logoUrl: z.string().optional().default(''),
     coverUrl: z.string().optional().default(''),
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     deliveryFee: z.number().int().min(0).max(300).default(49),
     minOrder: z.number().int().min(50).max(5000).default(150),
     deliveryMode: z.enum(['platform', 'restaurant', 'third_party']).default('platform'),
@@ -1292,8 +1377,12 @@ app.post('/api/restaurants/register', requireAuth, async (req: AuthRequest, res)
         lng: parsed.data.lng,
         phone: parsed.data.phone,
         email: parsed.data.email,
+<<<<<<< HEAD
         logoUrl: parsed.data.logoUrl?.trim() || '',
         coverUrl: parsed.data.coverUrl?.trim() || IMG_BANGLA,
+=======
+        coverUrl: IMG_BANGLA,
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
         tradeLicense: parsed.data.tradeLicense,
         nidNumber: parsed.data.nidNumber,
         payoutMethod: parsed.data.payoutMethod,
@@ -1503,9 +1592,12 @@ app.patch(
       deliveryFee: z.number().int().min(0).max(500).optional(),
       minOrder: z.number().int().min(0).max(5000).optional(),
       deliveryMode: z.enum(['platform', 'restaurant', 'third_party']).optional(),
+<<<<<<< HEAD
       logoUrl: z.string().optional(),
       coverUrl: z.string().optional(),
       description: z.string().optional(),
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     });
     const parsed = schema.safeParse(req.body);
     if (!parsed.success) return res.status(400).json({ error: 'Invalid restaurant settings' });
@@ -1530,6 +1622,7 @@ app.patch(
           deliveryFee: parsed.data.deliveryFee ?? rows[0].deliveryFee,
           minOrder: parsed.data.minOrder ?? rows[0].minOrder,
           deliveryMode: parsed.data.deliveryMode ?? rows[0].deliveryMode,
+<<<<<<< HEAD
           logoUrl:
             parsed.data.logoUrl !== undefined ? parsed.data.logoUrl.trim() : rows[0].logoUrl,
           coverUrl:
@@ -1540,6 +1633,8 @@ app.patch(
             parsed.data.description !== undefined
               ? parsed.data.description.trim()
               : rows[0].description,
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
           updatedAt: new Date(),
         })
         .where(eq(restaurants.id, rows[0].id))
@@ -1928,6 +2023,10 @@ app.patch(
 app.post(
   '/api/upload-image',
   requireAuth,
+<<<<<<< HEAD
+=======
+  requireRole(['restaurant_owner', 'admin', 'super_admin']),
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   async (req: AuthRequest, res) => {
     const schema = z.object({
       dataUrl: z.string().min(20),
@@ -1999,7 +2098,10 @@ app.post(
       phone: z.string().default('+8801710000000'),
       email: z.string().email().default('partner@foodora.bd'),
       description: z.string().default(''),
+<<<<<<< HEAD
       logoUrl: z.string().default(''),
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
       coverUrl: z.string().default(IMG_BANGLA),
       deliveryFee: z.number().int().min(0).max(500).default(49),
       minOrder: z.number().int().min(0).max(10000).default(150),
@@ -2037,7 +2139,10 @@ app.post(
           lng: 90.4066,
           phone: parsed.data.phone,
           email: parsed.data.email,
+<<<<<<< HEAD
           logoUrl: parsed.data.logoUrl?.trim() || '',
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
           coverUrl: parsed.data.coverUrl || IMG_BANGLA,
           deliveryFee: parsed.data.deliveryFee,
           minOrder: parsed.data.minOrder,
@@ -2083,7 +2188,10 @@ app.patch(
       area: z.string().min(2).optional(),
       address: z.string().min(3).optional(),
       description: z.string().optional(),
+<<<<<<< HEAD
       logoUrl: z.string().optional(),
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
       coverUrl: z.string().optional(),
       deliveryFee: z.number().int().min(0).max(500).optional(),
       minOrder: z.number().int().min(0).max(10000).optional(),
@@ -2115,7 +2223,10 @@ app.patch(
           area: parsed.data.area ?? current.area,
           address: parsed.data.address ?? current.address,
           description: parsed.data.description ?? current.description,
+<<<<<<< HEAD
           logoUrl: parsed.data.logoUrl !== undefined ? parsed.data.logoUrl.trim() : current.logoUrl,
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
           coverUrl: parsed.data.coverUrl || current.coverUrl,
           deliveryFee: parsed.data.deliveryFee ?? current.deliveryFee,
           minOrder: parsed.data.minOrder ?? current.minOrder,

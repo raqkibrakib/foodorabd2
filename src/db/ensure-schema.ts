@@ -49,6 +49,7 @@ async function runCreateTablesIfMissing(): Promise<void> {
     return;
   }
 
+<<<<<<< HEAD
   try {
     await createMissingTables(existingSet);
   } catch (err: any) {
@@ -65,6 +66,8 @@ async function runCreateTablesIfMissing(): Promise<void> {
 
 async function createMissingTables(existingSet: Set<string>): Promise<void> {
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   if (!existingSet.has('users')) {
     await db.execute(sql`
       CREATE TABLE IF NOT EXISTS users (

@@ -88,8 +88,11 @@ export function VendorDashboard({
   const [payoutMethod, setPayoutMethod] = useState<'bkash' | 'nagad' | 'bank'>('bkash');
   const [payoutAccount, setPayoutAccount] = useState('01712345678');
   const [deliveryMode, setDeliveryMode] = useState<DeliveryMode>('platform');
+<<<<<<< HEAD
   const [regLogoUrl, setRegLogoUrl] = useState('');
   const [regCoverUrl, setRegCoverUrl] = useState('');
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   const [submittingReg, setSubmittingReg] = useState(false);
 
   // Add food item form
@@ -126,9 +129,12 @@ export function VendorDashboard({
   const [editMinOrder, setEditMinOrder] = useState('150');
   const [editHours, setEditHours] = useState('10:00 AM - 11:30 PM');
   const [editMode, setEditMode] = useState<DeliveryMode>('platform');
+<<<<<<< HEAD
   const [editLogoUrl, setEditLogoUrl] = useState('');
   const [editCoverUrl, setEditCoverUrl] = useState('');
   const [savingSettings, setSavingSettings] = useState(false);
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
 
   // Payout request
   const [payoutAmt, setPayoutAmt] = useState('500');
@@ -161,8 +167,11 @@ export function VendorDashboard({
         setEditMinOrder(String(res.restaurant.minOrder));
         setEditHours(res.restaurant.openingHours);
         setEditMode(res.restaurant.deliveryMode);
+<<<<<<< HEAD
         setEditLogoUrl(res.restaurant.logoUrl || '');
         setEditCoverUrl(res.restaurant.coverUrl || '');
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
       } else {
         setShowOnboarding(true);
       }
@@ -204,8 +213,11 @@ export function VendorDashboard({
           nidNumber,
           payoutMethod,
           payoutAccount,
+<<<<<<< HEAD
           logoUrl: regLogoUrl.trim(),
           coverUrl: regCoverUrl.trim(),
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
           deliveryFee: 49,
           minOrder: 150,
           deliveryMode,
@@ -239,6 +251,7 @@ export function VendorDashboard({
   };
 
   const uploadProductPhoto = async (file: File, onSuccess: (url: string) => void) => {
+<<<<<<< HEAD
     if (file.size > 4.5 * 1024 * 1024) {
       setFeedback(
         lang === 'bn'
@@ -247,6 +260,8 @@ export function VendorDashboard({
       );
       return;
     }
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     setUploadingImage(true);
     setFeedback(null);
     try {
@@ -261,7 +276,11 @@ export function VendorDashboard({
         body: JSON.stringify({ dataUrl, filename: file.name }),
       });
       onSuccess(res.imageUrl);
+<<<<<<< HEAD
       setFeedback(lang === 'bn' ? 'ছবি আপলোড সম্পন্ন হয়েছে।' : 'Image uploaded successfully.');
+=======
+      setFeedback(lang === 'bn' ? 'ছবি আপলোড সম্পন্ন হয়েছে।' : 'Product image uploaded.');
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     } catch (err: unknown) {
       setFeedback(err instanceof Error ? err.message : 'Image upload failed');
     } finally {
@@ -362,6 +381,7 @@ export function VendorDashboard({
   const handleSaveSettings = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!restaurant) return;
+<<<<<<< HEAD
     setSavingSettings(true);
     setFeedback(null);
     try {
@@ -384,6 +404,20 @@ export function VendorDashboard({
     } finally {
       setSavingSettings(false);
     }
+=======
+    await apiFetch('/api/vendor/restaurant', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        restaurantId: restaurant.id,
+        openingHours: editHours,
+        deliveryFee: Number(editFee) || 0,
+        minOrder: Number(editMinOrder) || 0,
+        deliveryMode: editMode,
+      }),
+    });
+    setFeedback(lang === 'bn' ? 'স্টোর সেটিংস আপডেট হয়েছে।' : 'Store settings updated.');
+    await loadWorkspace();
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   };
 
   const handleToggleOpen = async () => {
@@ -590,6 +624,7 @@ export function VendorDashboard({
                   />
                 </div>
 
+<<<<<<< HEAD
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-semibold text-neutral-700 mb-1">
@@ -663,6 +698,8 @@ export function VendorDashboard({
                   </div>
                 </div>
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                 <div className="flex justify-end">
                   <button
                     type="button"
@@ -871,6 +908,7 @@ export function VendorDashboard({
           {/* Vendor Header & KPI Summary */}
           <div className="bg-white rounded-2xl border border-neutral-200 p-5 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
+<<<<<<< HEAD
               {restaurant.logoUrl ? (
                 <img
                   src={restaurant.logoUrl}
@@ -882,6 +920,11 @@ export function VendorDashboard({
                   <Store className="w-6 h-6" />
                 </div>
               )}
+=======
+              <div className="w-12 h-12 rounded-xl bg-[#FFF0F6] text-[#E21B70] flex items-center justify-center">
+                <Store className="w-6 h-6" />
+              </div>
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-xl font-bold text-[#2E3138]">
@@ -1649,6 +1692,7 @@ export function VendorDashboard({
               className="bg-white rounded-2xl border border-neutral-200 p-6 max-w-2xl space-y-4"
             >
               <h2 className="font-bold text-base text-[#2E3138]">
+<<<<<<< HEAD
                 {lang === 'bn'
                   ? 'লোগো, ব্র্যান্ডিং ও ডেলিভারি সেটিংস'
                   : 'Restaurant Branding, Logo & Delivery Settings'}
@@ -1742,6 +1786,10 @@ export function VendorDashboard({
                 </div>
               </div>
 
+=======
+                {lang === 'bn' ? 'ডেলিভারি ও সময়সূচি সেটিংস' : 'Kitchen Operations & Delivery Settings'}
+              </h2>
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-neutral-700 mb-1">Opening Hours</label>
@@ -1784,6 +1832,7 @@ export function VendorDashboard({
               </div>
               <button
                 type="submit"
+<<<<<<< HEAD
                 disabled={savingSettings || uploadingImage}
                 className="px-5 py-2.5 rounded-xl bg-[#E21B70] text-white text-xs font-semibold disabled:opacity-50"
               >
@@ -1794,6 +1843,11 @@ export function VendorDashboard({
                   : lang === 'bn'
                   ? 'সেটিংস ও লোগো সংরক্ষণ করুন'
                   : 'Save Settings & Branding'}
+=======
+                className="px-5 py-2.5 rounded-xl bg-[#E21B70] text-white text-xs font-semibold"
+              >
+                {lang === 'bn' ? 'সেটিংস সংরক্ষণ করুন' : 'Save Settings'}
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
               </button>
             </form>
           )}

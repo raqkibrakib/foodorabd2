@@ -11,7 +11,10 @@ import {
   ExternalLink,
   Filter,
   Heart,
+<<<<<<< HEAD
   KeyRound,
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   LocateFixed,
   Lock,
   LogIn,
@@ -77,7 +80,10 @@ function MarketplaceApp() {
     signInWithGoogle,
     signInWithEmail,
     registerWithEmail,
+<<<<<<< HEAD
     unlockAdminWithPin,
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     signInSandboxPersona,
     signOut,
     refreshUser,
@@ -192,9 +198,12 @@ function MarketplaceApp() {
   >([]);
   const [osmSearching, setOsmSearching] = useState(false);
   const [locatingGps, setLocatingGps] = useState(false);
+<<<<<<< HEAD
   const [pendingAdminRedirect, setPendingAdminRedirect] = useState(false);
   const [showAdminPinBox, setShowAdminPinBox] = useState(false);
   const [adminPinInput, setAdminPinInput] = useState('');
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
 
   const showToast = useCallback((msg: string) => {
     setToastMsg(msg);
@@ -509,6 +518,7 @@ function MarketplaceApp() {
 
   const isPrivilegedAdmin = Boolean(user && (user.role === 'admin' || user.role === 'super_admin'));
 
+<<<<<<< HEAD
   useEffect(() => {
     if (pendingAdminRedirect && isPrivilegedAdmin) {
       setPendingAdminRedirect(false);
@@ -530,6 +540,8 @@ function MarketplaceApp() {
     setAuthModalOpen(true);
   }, [isPrivilegedAdmin, clearError]);
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   const filteredRestaurants = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     const list = restaurants.filter((r) => {
@@ -649,6 +661,7 @@ function MarketplaceApp() {
               <span className="hidden sm:inline">{t(lang, 'riderCta')}</span>
               <span className="sm:hidden">Rider</span>
             </button>
+<<<<<<< HEAD
             <button
               type="button"
               onClick={openAdminOrPromptSignIn}
@@ -664,6 +677,22 @@ function MarketplaceApp() {
               </span>
               <span className="sm:hidden">Admin</span>
             </button>
+=======
+            {isPrivilegedAdmin && (
+              <button
+                type="button"
+                onClick={() => {
+                  setView({ type: 'admin' });
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="px-3 sm:px-4 py-1 rounded-lg border border-white/80 hover:bg-white/15 font-bold text-[10px] sm:text-[11px] uppercase tracking-wide inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-colors"
+              >
+                <Shield className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{t(lang, 'adminCta')}</span>
+                <span className="sm:hidden">Admin</span>
+              </button>
+            )}
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
           </div>
         </div>
       )}
@@ -719,6 +748,7 @@ function MarketplaceApp() {
                       setView({ type: 'admin' });
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
+<<<<<<< HEAD
                     className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg bg-[#2E3138] hover:bg-black text-white text-xs font-bold whitespace-nowrap shrink-0 transition-colors"
                   >
                     <Shield className="w-3.5 h-3.5 text-[#E21B70]" />
@@ -726,6 +756,12 @@ function MarketplaceApp() {
                       {user.role === 'super_admin' ? 'Super Admin' : 'Admin'}
                     </span>
                     <span className="sm:hidden">Admin</span>
+=======
+                    className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#2E3138] hover:bg-black text-white text-xs font-bold whitespace-nowrap shrink-0 transition-colors"
+                  >
+                    <Shield className="w-3.5 h-3.5 text-[#E21B70]" />
+                    <span>{user.role === 'super_admin' ? 'Super Admin' : 'Admin'}</span>
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                   </button>
                 )}
                 <button
@@ -1689,6 +1725,7 @@ function MarketplaceApp() {
                               </span>
                             ) : null}
 
+<<<<<<< HEAD
                             {rest.logoUrl && (
                               <img
                                 src={rest.logoUrl}
@@ -1698,6 +1735,8 @@ function MarketplaceApp() {
                               />
                             )}
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                             <button
                               type="button"
                               aria-label={`Favorite ${rest.name}`}
@@ -1854,7 +1893,19 @@ function MarketplaceApp() {
               </button>
               <button
                 type="button"
+<<<<<<< HEAD
                 onClick={openAdminOrPromptSignIn}
+=======
+                onClick={() => {
+                  if (isPrivilegedAdmin) {
+                    setView({ type: 'admin' });
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  } else {
+                    clearError();
+                    setAuthModalOpen(true);
+                  }
+                }}
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                 className="block hover:text-[#E21B70]"
               >
                 {isPrivilegedAdmin
@@ -2064,9 +2115,12 @@ function MarketplaceApp() {
                 onClick={() => {
                   clearError();
                   clearGoogleRedirectUrl();
+<<<<<<< HEAD
                   setPendingAdminRedirect(false);
                   setShowAdminPinBox(false);
                   setAdminPinInput('');
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                   setAuthModalOpen(false);
                 }}
                 className="p-1.5 rounded-lg text-neutral-500 hover:bg-neutral-100"
@@ -2075,6 +2129,7 @@ function MarketplaceApp() {
               </button>
             </div>
 
+<<<<<<< HEAD
             {!isPrivilegedAdmin && (showAdminPinBox || pendingAdminRedirect) && (
               <form
                 onSubmit={async (e) => {
@@ -2156,6 +2211,8 @@ function MarketplaceApp() {
               </form>
             )}
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
             {authError && (
               <div
                 role="alert"
@@ -2205,7 +2262,10 @@ function MarketplaceApp() {
               <button
                 type="button"
                 onClick={() => {
+<<<<<<< HEAD
                   setPendingAdminRedirect(false);
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                   setAuthModalOpen(false);
                   setView({ type: 'admin' });
                   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2434,9 +2494,15 @@ function MarketplaceApp() {
 
             <div className="pt-2 border-t border-neutral-100 space-y-2">
               <p className="text-[11px] font-bold uppercase text-neutral-500">
+<<<<<<< HEAD
                 {lang === 'bn' ? 'ওয়ার্কস্পেস পরিবর্তন' : 'Switch Workspace'}
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+=======
+                {lang === 'bn' ? 'ডেমো ওয়ার্কস্পেস পরিবর্তন (কাস্টমার / ভেন্ডর / রাইডার)' : 'Switch Demo Workspace'}
+              </p>
+              <div className="grid grid-cols-3 gap-2 text-xs">
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                 <button
                   type="button"
                   onClick={() => handleSwitchWorkspace('customer', { type: 'customer' })}
@@ -2461,6 +2527,7 @@ function MarketplaceApp() {
                   <Bike className="w-4 h-4 text-[#E21B70] mb-1" />
                   Rider
                 </button>
+<<<<<<< HEAD
                 <button
                   type="button"
                   onClick={() => {
@@ -2484,6 +2551,13 @@ function MarketplaceApp() {
                 {lang === 'bn'
                   ? 'অ্যাডমিন প্যানেল খুলতে Admin PIN বা অনুমোদিত অ্যাডমিন অ্যাকাউন্ট ব্যবহার করুন।'
                   : 'Admin & Super Admin control requires Admin PIN or verified Admin sign-in.'}
+=======
+              </div>
+              <p className="text-[11px] text-neutral-400">
+                {lang === 'bn'
+                  ? 'অ্যাডমিন ও সুপার অ্যাডমিন কন্ট্রোল শুধুমাত্র অনুমোদিত অ্যাডমিন লগইনের জন্য সংরক্ষিত।'
+                  : 'Admin & Super Admin control is restricted to verified Admin accounts.'}
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
               </p>
             </div>
           </div>

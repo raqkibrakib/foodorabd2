@@ -124,6 +124,7 @@ export function RestaurantDetailView({
           <div className="lg:col-span-7 p-6 flex flex-col justify-between gap-4">
             <div>
               <div className="flex items-start justify-between gap-4">
+<<<<<<< HEAD
                 <div className="flex items-start gap-3.5 min-w-0">
                   {restaurant.logoUrl && (
                     <img
@@ -142,6 +143,16 @@ export function RestaurantDetailView({
                     </h1>
                     <p className="text-sm text-neutral-600 mt-1">{restaurant.description}</p>
                   </div>
+=======
+                <div>
+                  <p className="text-xs font-medium text-neutral-500 mb-1">
+                    {restaurant.cuisine} · {restaurant.priceTier} · {restaurant.area}
+                  </p>
+                  <h1 className="text-2xl sm:text-3xl font-bold text-[#2E3138] tracking-tight">
+                    {lang === 'bn' ? restaurant.nameBn : restaurant.name}
+                  </h1>
+                  <p className="text-sm text-neutral-600 mt-1">{restaurant.description}</p>
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                 </div>
                 <button
                   type="button"

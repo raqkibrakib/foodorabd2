@@ -7,7 +7,10 @@ import {
   CreditCard,
   Database,
   Download,
+<<<<<<< HEAD
   KeyRound,
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   LayoutTemplate,
   Package,
   Pencil,
@@ -91,7 +94,10 @@ interface RestaurantFormState {
   area: string;
   address: string;
   description: string;
+<<<<<<< HEAD
   logoUrl: string;
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   coverUrl: string;
   deliveryFee: string;
   minOrder: string;
@@ -150,6 +156,7 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
   const [minOrderDefault, setMinOrderDefault] = useState('150');
   const [savingSettings, setSavingSettings] = useState(false);
 
+<<<<<<< HEAD
   // Admin Panel Security PIN Change Form
   const [currentPin, setCurrentPin] = useState('');
   const [newPin, setNewPin] = useState('');
@@ -157,6 +164,8 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
   const [savingPin, setSavingPin] = useState(false);
   const [pinMsg, setPinMsg] = useState<string | null>(null);
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   // Backend Control State
   const [backendStatus, setBackendStatus] = useState<BackendStatusSummary | null>(null);
   const [loadingBackend, setLoadingBackend] = useState(false);
@@ -184,7 +193,10 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
   // Restaurant Create / Edit Modal
   const [restaurantModal, setRestaurantModal] = useState<RestaurantFormState | null>(null);
   const [savingRestaurant, setSavingRestaurant] = useState(false);
+<<<<<<< HEAD
   const [modalError, setModalError] = useState<string | null>(null);
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
 
   // New coupon form
   const [code, setCode] = useState('');
@@ -281,6 +293,7 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
   }, [products, productRestFilter, productSearch]);
 
   const handleUploadImage = async (file: File, onUploaded: (url: string) => void) => {
+<<<<<<< HEAD
     if (file.size > 4.5 * 1024 * 1024) {
       const msg =
         lang === 'bn'
@@ -292,6 +305,9 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
     }
     setUploadingPhoto(true);
     setModalError(null);
+=======
+    setUploadingPhoto(true);
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     setFeedback(null);
     try {
       const dataUrl = await new Promise<string>((resolve, reject) => {
@@ -307,9 +323,13 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
       onUploaded(res.imageUrl);
       setFeedback(lang === 'bn' ? 'ছবি সফলভাবে আপলোড হয়েছে।' : 'Image uploaded successfully.');
     } catch (err: unknown) {
+<<<<<<< HEAD
       const msg = err instanceof Error ? err.message : 'Image upload failed';
       setModalError(msg);
       setFeedback(msg);
+=======
+      setFeedback(err instanceof Error ? err.message : 'Image upload failed');
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     } finally {
       setUploadingPhoto(false);
     }
@@ -341,6 +361,7 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
     }
   };
 
+<<<<<<< HEAD
   const handleUpdateAdminPin = async (e: React.FormEvent) => {
     e.preventDefault();
     setPinMsg(null);
@@ -377,6 +398,8 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
     }
   };
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   const handleSaveFrontendConfig = async (e: React.FormEvent) => {
     e.preventDefault();
     setSavingFrontend(true);
@@ -607,7 +630,10 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
   };
 
   const openCreateRestaurantModal = () => {
+<<<<<<< HEAD
     setModalError(null);
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     setRestaurantModal({
       name: '',
       nameBn: '',
@@ -615,7 +641,10 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
       area: DHAKA_AREAS[0].name,
       address: '',
       description: '',
+<<<<<<< HEAD
       logoUrl: '',
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
       coverUrl: '',
       deliveryFee: '49',
       minOrder: '150',
@@ -630,7 +659,10 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
   };
 
   const openEditRestaurantModal = (r: Restaurant) => {
+<<<<<<< HEAD
     setModalError(null);
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     setRestaurantModal({
       id: r.id,
       name: r.name,
@@ -639,7 +671,10 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
       area: r.area,
       address: r.address,
       description: r.description,
+<<<<<<< HEAD
       logoUrl: r.logoUrl || '',
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
       coverUrl: r.coverUrl,
       deliveryFee: String(r.deliveryFee),
       minOrder: String(r.minOrder),
@@ -657,7 +692,10 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
     e.preventDefault();
     if (!restaurantModal) return;
     setSavingRestaurant(true);
+<<<<<<< HEAD
     setModalError(null);
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     try {
       const payload = {
         name: restaurantModal.name.trim(),
@@ -666,7 +704,10 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
         area: restaurantModal.area.trim(),
         address: restaurantModal.address.trim(),
         description: restaurantModal.description.trim(),
+<<<<<<< HEAD
         logoUrl: restaurantModal.logoUrl.trim(),
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
         coverUrl: restaurantModal.coverUrl.trim(),
         deliveryFee: Number(restaurantModal.deliveryFee) || 0,
         minOrder: Number(restaurantModal.minOrder) || 0,
@@ -694,8 +735,11 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
       setRestaurantModal(null);
       await loadAdmin();
       await onRestaurantsMutated();
+<<<<<<< HEAD
     } catch (err: unknown) {
       setModalError(err instanceof Error ? err.message : 'Failed to save restaurant');
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
     } finally {
       setSavingRestaurant(false);
     }
@@ -1045,6 +1089,7 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
 
           {/* Payment Gateways, Couriers & Clean ZIP Export */}
           <div className="lg:col-span-6 space-y-6">
+<<<<<<< HEAD
             {currentUser.role === 'super_admin' && (
               <form
                 onSubmit={handleUpdateAdminPin}
@@ -1120,6 +1165,8 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
                 </button>
               </form>
             )}
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
             <div className="bg-white rounded-2xl border border-neutral-200 p-5 space-y-3">
               <h2 className="font-bold text-sm text-[#2E3138] flex items-center gap-2">
                 <CreditCard className="w-4 h-4 text-[#E21B70]" />
@@ -2064,6 +2111,7 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
                 className="bg-white rounded-2xl border border-neutral-200 p-4 flex flex-wrap items-center justify-between gap-4"
               >
                 <div className="flex items-center gap-3">
+<<<<<<< HEAD
                   <div className="relative shrink-0">
                     <img
                       src={rest.coverUrl}
@@ -2078,6 +2126,13 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
                       />
                     )}
                   </div>
+=======
+                  <img
+                    src={rest.coverUrl}
+                    alt={rest.name}
+                    className="w-14 h-14 rounded-xl object-cover bg-neutral-100 shrink-0"
+                  />
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="font-bold text-sm text-[#2E3138]">
@@ -2897,6 +2952,7 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
               </div>
             </div>
 
+<<<<<<< HEAD
             {modalError && (
               <div
                 role="alert"
@@ -2984,6 +3040,20 @@ export function AdminDashboard({ lang, currentUser, onRestaurantsMutated, onBack
                     onChange={(e) => {
                       const f = e.target.files?.[0];
                       e.target.value = '';
+=======
+            <div className="space-y-1.5 text-xs">
+              <label className="block font-semibold text-neutral-700">Cover Image</label>
+              <div className="flex items-center gap-2">
+                <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-neutral-200 bg-neutral-50 hover:border-[#E21B70] font-semibold">
+                  <Upload className="w-3.5 h-3.5 text-[#E21B70]" />
+                  <span>Upload Cover</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="sr-only"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
                       if (f) {
                         handleUploadImage(f, (url) =>
                           setRestaurantModal((prev) => (prev ? { ...prev, coverUrl: url } : null))

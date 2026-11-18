@@ -13,7 +13,10 @@ interface AuthContextValue {
   signInWithGoogle: () => Promise<boolean>;
   signInWithEmail: (email: string, password: string) => Promise<AppUser>;
   registerWithEmail: (fullName: string, email: string, password: string) => Promise<AppUser>;
+<<<<<<< HEAD
   unlockAdminWithPin: (pin: string) => Promise<AppUser>;
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   signInSandboxPersona: (role: 'customer' | 'restaurant_owner' | 'rider') => Promise<AppUser>;
   signOut: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -242,6 +245,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     []
   );
 
+<<<<<<< HEAD
   const unlockAdminWithPin = useCallback(async (pin: string): Promise<AppUser> => {
     setError(null);
     try {
@@ -264,6 +268,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
   const signInSandboxPersona = useCallback(
     async (role: 'customer' | 'restaurant_owner' | 'rider') => {
       setError(null);
@@ -317,7 +323,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signInWithGoogle,
         signInWithEmail,
         registerWithEmail,
+<<<<<<< HEAD
         unlockAdminWithPin,
+=======
+>>>>>>> 0260dd8282de4b6d1ec01e0cf7d9065c3700fb04
         signInSandboxPersona,
         signOut,
         refreshUser,
