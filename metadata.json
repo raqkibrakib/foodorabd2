@@ -1,0 +1,6 @@
+{
+  "name": "Foodora BD",
+  "description": "Bangladesh's Multi-Vendor Food Delivery Marketplace — Discover local restaurants, order authentic Bangladeshi & international cuisine, track live deliveries, and manage vendor kitchens.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
